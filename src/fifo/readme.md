@@ -4,11 +4,9 @@ The library have some functio:
 + Read one byte or muti byte from memory temprature
 
 
-Example use:
+## Example use: ## 
 
-/**
-The example use fifo mode write muti byte and read muti byte
-*/
+```c
 #include "fifo.h"
 
 fifo_t fifo_example;
@@ -70,5 +68,4 @@ void loop()
     //read data in fifo library write serial
     readDataInFifo();
 }
-
-//The end
+```
