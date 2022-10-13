@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 #include "stdint.h"
-#include "timer_virtural.h"
+#include "../myLib.h"
 
 #define _TIME_INIT_PRESS 		5	/*50 ms*/
 #define _TIME_INIT_RELEASE 		5	/*50 ms*/
