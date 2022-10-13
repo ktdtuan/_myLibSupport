@@ -44,11 +44,11 @@ void fifo_give_byte(fifo_t *fifo, uint8_t data)
     if (fifo->buff == NULL)
         return;
 
-    // check notify overload buffer temprature
+    // check notify overload buffer temporary
     if (is_overload(fifo, 1) != 0 && fifo->cb_overload != NULL)
         fifo->cb_overload();
 
-    // give one byte to buffer temprature
+    // give one byte to buffer temporary
     fifo->buff[fifo->id_wr] = data;
 
     // offset index write one counter
@@ -60,9 +60,9 @@ void fifo_give_byte(fifo_t *fifo, uint8_t data)
  * @brief
  *
  * @param fifo
- * @param data array data write buffer temprature
- * @param length size of data prepare write buffer temprature
- * @return uint16_t is length overload of size buffer temprature
+ * @param data array data write buffer temporary
+ * @param length size of data prepare write buffer temporary
+ * @return uint16_t is length overload of size buffer temporary
  */
 uint16_t give_array(fifo_t *fifo, uint8_t *data, uint16_t length)
 {
@@ -102,7 +102,7 @@ uint8_t fifo_give_array(fifo_t *fifo, uint8_t *data, uint16_t length)
     uint16_t len_free = size_buff_free(fifo);
     if (len_free == 0 || len_free == fifo->buff_size)
     {
-        // notify overload buffer temprature
+        // notify overload buffer temporary
         if (fifo->cb_overload != NULL)
             fifo->cb_overload();
 
@@ -111,7 +111,7 @@ uint8_t fifo_give_array(fifo_t *fifo, uint8_t *data, uint16_t length)
             len_free = fifo->buff_size;
     }
 
-    // if length of data < length free in the buffer temprature
+    // if length of data < length free in the buffer temporary
     if (length <= len_free)
         give_array(fifo, data, length);
     else

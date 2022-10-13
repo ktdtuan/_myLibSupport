@@ -1,7 +1,9 @@
-This is a function give buffer. That can be used to store byte array or one byte. It is written in C languare and you can compiled with any landguare. When init dynamic memory and retrun feedback true or false, you can check it.
+## Deription ##
+
+This is a function give buffer. That can be used to store byte array or one byte. It is written in C languare and you can compiled with any software. When init dynamic memory and retrun feedback true or false, you can check it.
 The library have some functio:
-+ Give one byte or muti byte to memory temprature. Use can overload size dynamic memory init, and now the function to callback overload
-+ Read one byte or muti byte from memory temprature
++ Give one byte or multi byte to memory temporary. You can puts over size compare to size buffer temporary init, and now the library run a function callback overload
++ Read one byte or multi byte from memory temporary
 
 
 ## Example use: ## 
@@ -13,7 +15,7 @@ fifo_t fifo_example;
 
 void cb_overload_ram(void)
 {
-    Serial.println("overload size of buffer temprature");
+    Serial.println("overload size of buffer temporary");
 
     uint16_t length = fifo_availeble(&fifo_example);
     uint8_t *buffer = (uint8_t *)malloc(length + 1);
@@ -57,7 +59,7 @@ void init()
 {
     Serial.begin(115200);
 
-    fifo_init(&fifo_example, 10, cb_overload_ram); // length of buffer temprature are 10 byte
+    fifo_init(&fifo_example, 10, cb_overload_ram); // length of buffer temporary are 10 byte
 }
 
 void loop()
