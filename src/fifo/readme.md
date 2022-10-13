@@ -6,6 +6,9 @@ The library have some functio:
 
 Example use:
 
+/**
+The example use fifo mode write muti byte and read muti byte
+*/
 #include "fifo.h"
 
 fifo_t fifo_example;
@@ -67,3 +70,5 @@ void loop()
     //read data in fifo library write serial
     readDataInFifo();
 }
+
+//The end
