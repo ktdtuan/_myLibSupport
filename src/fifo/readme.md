@@ -9,7 +9,7 @@ The library have some functio:
 ## Example use: ## 
 
 ```c
-#include "fifo.h"
+#include "myLib.h"
 
 fifo_t fifo_example;
 
@@ -29,9 +29,11 @@ void cb_overload_ram(void)
 
 void serialReciver(void)
 {
-    if ((uint8_t size_data = SERIAL_CMD.available()) != 0)
+    uint8_t size_data;
+    if ((size_data = Serial.available()) != 0)
     {
         uint8_t *buffer = (uint8_t *)malloc(size_data + 1);
+        memset(buffer, 0, size_data + 1);
 
         Serial.read(buffer, size_data);
         fifo_give_array(&fifo_example, buffer, size_data);
@@ -42,10 +44,11 @@ void serialReciver(void)
 
 void readDataInFifo(void)
 {
-    if ((uint8_t size_data = fifo_availeble(&fifo_example) != 0))
+    uint8_t size_data;
+    if ((size_data = fifo_availeble(&fifo_example) != 0))
     {
         uint8_t *buffer = (uint8_t *)malloc(size_data + 1);
-        memset(buffer, 0, sizeof(size_data));
+        memset(buffer, 0, size_data + 1);
 
         fifo_read_array(&fifo_example, buffer, size_data);
 
@@ -55,14 +58,14 @@ void readDataInFifo(void)
     }
 }
 
-void init()
+void setup(void)
 {
     Serial.begin(115200);
 
     fifo_init(&fifo_example, 10, cb_overload_ram); // length of buffer temporary are 10 byte
 }
 
-void loop()
+void loop(void) 
 {
     //read data in serial and write fifo library
     serialReciver();
