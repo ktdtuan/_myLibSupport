@@ -1,5 +1,5 @@
-#ifndef SRC_BUTTON_BUTTON_H_
-#define SRC_BUTTON_BUTTON_H_
+#ifndef __BUTTON_ID_H_
+#define __BUTTON_ID_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,8 +57,8 @@ extern "C" {
 typedef enum {
 	_BUTTON_FUNC_EVENT,
 	_BUTTON_FUNC_MULCLICK,
-	_BUTTON_FUNC_HOLD
-}button_functionCb_t;
+	_BUTTON_FUNC_HOLD,
+}bt_eventFunc_t;
 
 typedef enum
 {
@@ -68,15 +68,22 @@ typedef enum
 	BUTTON_ONECLICK,
 	BUTTON_HOLD_PRESS,
 	BUTTON_HOLD_RELEASE,
-}EventButton_t;
+}bt_status_t;
 
 typedef union {
-	EventButton_t event;
+	bt_status_t event;
 	uint8_t numClick;
 	uint32_t holdInterval_ms;
-}button_typeArg_t;
+}bt_typeArg_t;
 
-typedef void (*button_cb)(button_functionCb_t typeFunction, button_typeArg_t agr);
+/**
+ * @brief type function callback
+ * 
+ * @param ID indentify of button. you can use or not use it.
+ * @param eventFunc It is type SINGLE CLICK, MULTI CLICK or PRESS HOLD
+ * @param agr parameter of event button. It is status event, click counter and interval hold button.
+ */
+typedef void (*button_cb)(uint16_t ID, bt_eventFunc_t eventFunc, bt_typeArg_t agr);
 
 typedef enum
 {
@@ -89,7 +96,7 @@ typedef enum
 	_BTN_isClick 				= 6, //(user event) && (_multiClick==user_times)
 	_BTN_wait_clrMultiClick 	= 7, // wait timeout clear multi-click
 	_BTN_multi_init 			= 8, // begin the multi-click
-	_BTN_hold_pass 				= 9
+	_BTN_hold_pass 				= 9,
 } BTN_Stt_t;
 
 typedef struct {
@@ -103,6 +110,7 @@ typedef struct{
 	uint32_t 	timeHold;
 
 	//CallBack functions
+	uint16_t	ID;
 	button_cb 	cb_function;
 
 	//PRIVATE
@@ -116,4 +124,4 @@ void btn_progress_loop(button_t *btn, uint8_t status);
 }
 #endif
 
-#endif /* SRC_BUTTON_H_ */
+#endif /* __BUTTON_ID_H_ */

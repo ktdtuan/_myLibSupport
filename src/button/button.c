@@ -24,10 +24,10 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 			// callback Press
 			if (btn->cb_function)
 			{
-				button_typeArg_t ArgValue;
+				bt_typeArg_t ArgValue;
 				ArgValue.event = BUTTON_PRESS;
 
-				btn->cb_function(_BUTTON_FUNC_EVENT, ArgValue);
+				btn->cb_function(btn->ID, _BUTTON_FUNC_EVENT, ArgValue);
 			}
 
 			break;
@@ -39,9 +39,9 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 				// callbak hold Release
 				if (btn->cb_function)
 				{
-					button_typeArg_t ArgValue;
+					bt_typeArg_t ArgValue;
 					ArgValue.event = BUTTON_HOLD_PRESS;
-					btn->cb_function(_BUTTON_FUNC_EVENT, ArgValue);
+					btn->cb_function(btn->ID, _BUTTON_FUNC_EVENT, ArgValue);
 				}
 			}
 			break;
@@ -62,9 +62,9 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 			// callback Hold on
 			if (btn->cb_function)
 			{
-				button_typeArg_t ArgValue;
+				bt_typeArg_t ArgValue;
 				ArgValue.holdInterval_ms = 10 * btn->timeHold;
-				btn->cb_function(_BUTTON_FUNC_HOLD, ArgValue);
+				btn->cb_function(btn->ID, _BUTTON_FUNC_HOLD, ArgValue);
 			}
 
 			break;
@@ -93,18 +93,18 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 				// callback every click
 				if (btn->cb_function)
 				{
-					button_typeArg_t ArgValue;
+					bt_typeArg_t ArgValue;
 					ArgValue.event = BUTTON_ONECLICK;
-					btn->cb_function(_BUTTON_FUNC_EVENT, ArgValue);
+					btn->cb_function(btn->ID, _BUTTON_FUNC_EVENT, ArgValue);
 				}
 
 				// callback multiClick
 				if (btn->cb_function)
 				{
-					button_typeArg_t ArgValue;
+					bt_typeArg_t ArgValue;
 					ArgValue.numClick = btn->multiClick;
 					// if( btn->multiClick > 2)
-					btn->cb_function(_BUTTON_FUNC_MULCLICK, ArgValue);
+					btn->cb_function(btn->ID, _BUTTON_FUNC_MULCLICK, ArgValue);
 				}
 			}
 
@@ -118,9 +118,9 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 			// callbak hold Release
 			if (btn->cb_function)
 			{
-				button_typeArg_t ArgValue;
+				bt_typeArg_t ArgValue;
 				ArgValue.event = BUTTON_HOLD_RELEASE;
-				btn->cb_function(_BUTTON_FUNC_EVENT, ArgValue);
+				btn->cb_function(btn->ID, _BUTTON_FUNC_EVENT, ArgValue);
 			}
 
 			break;
