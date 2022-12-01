@@ -37,7 +37,7 @@ void timer_set(timer_virtual_t *t, clock_time_t interval)
 {
   t->status = _timer_on;
   t->start = _unitTick;
-  t->interval = interval;
+  t->interval = interval / 10;
   t->left_time = 0;
 }
 

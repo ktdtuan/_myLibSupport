@@ -8,10 +8,10 @@ extern "C" {
 #include "stdint.h"
 #include "../myLib.h"
 
-#define _TIME_INIT_PRESS 		5	/*50 ms*/
-#define _TIME_INIT_RELEASE 		5	/*50 ms*/
-#define _TIME_HOLD_ACTIVE 		100 /*1s */
-#define _TIMEOUT_MULTICLICK 	50	/*500 ms*/
+#define _TIME_INIT_PRESS 		50	/*50 ms*/
+#define _TIME_INIT_RELEASE 		50	/*50 ms*/
+#define _TIME_HOLD_ACTIVE 		1000 /*1s */
+#define _TIMEOUT_MULTICLICK 	500	/*500 ms*/
 
 /*Note : explain events
 *
