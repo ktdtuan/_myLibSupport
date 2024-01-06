@@ -6,7 +6,7 @@ clock_time_t _unitTick;
 /**
  * get uTick of my timer system.
  */
-clock_time_t timer_getTick()
+clock_time_t timer_getTick(void)
 {
   return _unitTick;
 }
@@ -18,7 +18,7 @@ clock_time_t timer_getTick()
  */
 void timer_periodic_poll(void)
 {
-  _unitTick++;
+  _unitTick += _INTERVAL_TICK;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -37,7 +37,7 @@ void timer_set(timer_virtual_t *t, clock_time_t interval)
 {
   t->status = _timer_on;
   t->start = _unitTick;
-  t->interval = interval / 10;
+  t->interval = interval;
   t->left_time = 0;
 }
 
@@ -96,6 +96,8 @@ void timer_restart(timer_virtual_t *t)
  */
 uint8_t timer_expired(timer_virtual_t *t)
 {
+  if(t->status == _timer_off)
+    return 0;
   if (t->status == _timer_over)
     return 1;
 

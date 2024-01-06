@@ -8,10 +8,9 @@ extern "C"
 
 #include "stdint.h"
 
+#define _INTERVAL_TICK 1 /*1 ms*/
+
 typedef uint32_t clock_time_t;
-#define CLOCK_SECOND (100UL)
-#define CLOCK_MINUTE (60 * CLOCK_SECOND)
-#define CLOCK_HOUR (60 * CLOCK_MINUTE)
 
 	/**
 	 * A timer.
@@ -31,10 +30,10 @@ typedef uint32_t clock_time_t;
 
 	typedef struct
 	{
-		timerStt_t status;
-		clock_time_t start;
-		clock_time_t interval;
-		clock_time_t left_time;
+	  timerStt_t status;
+	  clock_time_t start;
+	  clock_time_t interval;
+	  clock_time_t left_time;
 	} timer_virtual_t;
 
 	clock_time_t timer_getTick(void);

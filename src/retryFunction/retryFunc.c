@@ -1,42 +1,57 @@
 #include "retryFunc.h"
 
-void retry_function_init(retry_func_t *str_t, uint8_t (*func)(), uint16_t retry, uint32_t interval, uint8_t wait_result, void (*cbErr)(uint8_t result))
+void ReF_init(retryFunc_t *reFunc, void *handle, uint8_t (*reciver)(void *arg), void *cbResult)
 {
-    timer_set(&str_t->_poll, interval / 10);
-    str_t->_function = func;
-    str_t->_cbError = cbErr;
-    str_t->_wait_result = wait_result;
-    str_t->_retry = retry;
+    reFunc->_handle = handle;
+    reFunc->_reciver = reciver;
+    reFunc->_cbResult = cbResult;
 }
 
-void retry_function_loop(retry_func_t *str_t)
+void ReF_start(retryFunc_t *reFunc, uint32_t interval, uint16_t retry, reFTypeRev_t type, const char *pcs, const char *rev)
 {
-    if (str_t->_retry == 0)
+    if (reFunc->_handle == 0)
+        return;
+    reFunc->_handle((void *)pcs);
+    reFunc->_retry = (retry == 0) ? 1 : retry;
+    timer_set(&reFunc->_poll, interval);
+}
+
+void ReF_stop(retryFunc_t *reFunc)
+{
+    reFunc->_retry = 0;
+    timer_stop(&reFunc->_poll);
+}
+
+void ReF_loop(retryFunc_t *reFunc)
+{
+    if (reFunc->_retry == 0)
         return;
 
-    if (timer_expired(&str_t->_poll) == 0)
-        return;
-
-    if (str_t->_function == 0)
+    // call function check result
+    if (reFunc->_reciver(0) != 0)
     {
-        str_t->_retry = 0;
-        timer_stop(&str_t->_poll);
+    }
+
+    // reset time of interval retry
+    if (timer_expired(&reFunc->_poll) == 0)
+        return;
+    timer_restart(&reFunc->_poll);
+
+    // check retry. if there is no retry it's over
+    if (--reFunc->_retry == 0)
+    {
+        if (reFunc->_cbResult != 0)
+            reFunc->_cbResult(0);
+        timer_stop(&reFunc->_poll);
         return;
     }
 
-    uint8_t result = str_t->_function();
-
-    if (result == str_t->_wait_result)
+    // call function process
+    if (reFunc->_handle == 0)
     {
-        str_t->_retry = 0;
+        reFunc->_retry = 0;
+        timer_stop(&reFunc->_poll);
         return;
     }
-    if (--str_t->_retry == 0)
-    {
-        if (str_t->_cbError != 0)
-            str_t->_cbError(result);
-        timer_stop(&str_t->_poll);
-        return;
-    }
-    timer_restart(&str_t->_poll);
+    reFunc->_handle(0);
 }

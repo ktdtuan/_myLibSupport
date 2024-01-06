@@ -6,10 +6,10 @@ extern "C" {
 #endif
 
 #include "stdint.h"
-#include "../myLib.h"
+#include "../timeVirtural/timer_virtural.h"
 
-#define _TIME_INIT_PRESS 		50	/*50 ms*/
-#define _TIME_INIT_RELEASE 		50	/*50 ms*/
+#define _TIME_INIT_PRESS 		20	/*50 ms*/
+#define _TIME_INIT_RELEASE 		20	/*50 ms*/
 #define _TIME_HOLD_ACTIVE 		1000 /*1s */
 #define _TIMEOUT_MULTICLICK 	500	/*500 ms*/
 
@@ -70,7 +70,7 @@ typedef enum
 	BUTTON_HOLD_RELEASE,
 }bt_status_t;
 
-typedef union {
+typedef struct {
 	bt_status_t event;
 	uint8_t numClick;
 	uint32_t holdInterval_ms;
@@ -83,7 +83,7 @@ typedef union {
  * @param eventFunc It is type SINGLE CLICK, MULTI CLICK or PRESS HOLD
  * @param agr parameter of event button. It is status event, click counter and interval hold button.
  */
-typedef void (*button_cb)(uint16_t ID, bt_eventFunc_t eventFunc, bt_typeArg_t agr);
+typedef void (*button_cb)(uint16_t ID, bt_eventFunc_t eventFunc, bt_typeArg_t *agr);
 
 typedef enum
 {

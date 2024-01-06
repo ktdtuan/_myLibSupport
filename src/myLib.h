@@ -7,5 +7,6 @@
 #include "button/button.h"
 #include "retryFunction/retryFunc.h"
 #include "fifo/fifo.h"
+#include "output/output.h"
 
 #endif
