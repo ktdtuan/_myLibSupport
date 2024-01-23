@@ -8,5 +8,6 @@
 #include "retryFunction/retryFunc.h"
 #include "fifo/fifo.h"
 #include "output/output.h"
+#include "getString/get_string.h"
 
 #endif

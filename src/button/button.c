@@ -97,16 +97,17 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 				if (btn->cb_function)
 				{
 					ArgValue.event = BUTTON_ONECLICK;
+					ArgValue.numClick = btn->multiClick;
 					btn->cb_function(btn->ID, _BUTTON_FUNC_EVENT, &ArgValue);
 				}
 
-				// callback multiClick
-				if (btn->cb_function)
-				{
-					ArgValue.numClick = btn->multiClick;
-					// if( btn->multiClick > 2)
-					btn->cb_function(btn->ID, _BUTTON_FUNC_MULCLICK, &ArgValue);
-				}
+				// // callback multiClick
+				// if (btn->cb_function)
+				// {
+				// 	ArgValue.numClick = btn->multiClick;
+				// 	// if( btn->multiClick > 2)
+				// 	btn->cb_function(btn->ID, _BUTTON_FUNC_MULCLICK, &ArgValue);
+				// }
 			}
 
 			break;

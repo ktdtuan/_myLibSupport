@@ -86,7 +86,6 @@ void OUTPUT_setBlink(OUTPUT_t *tmp, uint8_t repeat, clock_time_t dutyON_ms, cloc
 
 void OUTPUT_blinkHandle(OUTPUT_t *tmp)
 {
-
 	if (tmp->pinBaseCtrl)
 	{
 		if (tmp->mode != OUT_MODE_NO_CONTROL)
