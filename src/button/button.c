@@ -30,7 +30,6 @@ void btn_progress_loop(button_t *btn, uint8_t status)
 			if (btn->cb_function)
 			{
 				ArgValue.event = BUTTON_PRESS;
-
 				btn->cb_function(btn->ID, _BUTTON_FUNC_EVENT, &ArgValue);
 			}
 

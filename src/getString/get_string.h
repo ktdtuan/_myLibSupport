@@ -11,7 +11,7 @@ extern "C"
 #include "string.h"
 
 #define MAX_STRING					4//minximum: 2
-#define MAX_LEN_STRING				52
+#define MAX_LEN_STRING				100
 #define TIMEOUT_STRING				20//20ms
 typedef struct{
 	char							string[MAX_STRING][MAX_LEN_STRING];// 2 buffer để nhận dữ liệu
